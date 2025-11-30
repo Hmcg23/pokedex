@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Image, ScrollView, Text, View } from "react-native";
+import { Image, ScrollView, Text, View, StyleSheet } from "react-native";
 
 interface Pokemon {
   name: string;
@@ -55,12 +55,12 @@ export default function Index() {
     <ScrollView>
       {pokemons.map((pokemon) => (
         <View key={pokemon.name}>
-          <Text>{pokemon.name}</Text>
-          <Text>{pokemon.types[0].type.name}</Text>
+          <Text style={styles.name}>{pokemon.name}</Text>
+          <Text style={styles.type}>{pokemon.types[0].type.name}</Text>
           <View style={{flexDirection: 'row'}}>
             <Image 
-            source={{ uri: pokemon.image }}
-            style={{width: 150, height: 150}}
+              source={{ uri: pokemon.image }}
+              style={{width: 150, height: 150}}
             />
             <Image 
               source={{ uri: pokemon.imageBack }}
@@ -74,3 +74,16 @@ export default function Index() {
     </ScrollView>
   );
 }
+
+
+const styles = StyleSheet.create({
+  name: {
+    fontSize: 28,
+    fontWeight: 'bold',
+  },
+  type: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'gray'
+  },
+}); 
