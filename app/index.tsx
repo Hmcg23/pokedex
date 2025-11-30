@@ -15,6 +15,27 @@ interface PokemonType {
   }
 }
 
+const colorsByType = {
+  grass: '#78C850',
+  fire: '#F08030',
+  water: '#6890F0',
+  bug: '#A8B820',
+  normal: '#A8A878',
+  poison: '#A040A0',
+  electric: '#F8D030',
+  ground: '#E0C068',
+  fairy: '#EE99AC',
+  fighting: '#C03028',
+  psychic: '#F85888',
+  rock: '#B8A038',
+  ghost: '#705898',
+  ice: '#98D8D8',
+  dragon: '#7038F8',
+  dark: '#705848',
+  steel: '#B8B8D0',
+  flying: '#A890F0',
+}
+
 export default function Index() {
   // value (pokemons) and function to update it (setPokemons)
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
@@ -52,12 +73,25 @@ export default function Index() {
   }
   
   return (
-    <ScrollView>
+    <ScrollView
+      contentContainerStyle={{
+        gap: 16,
+        padding: 16
+      }}
+    >
       {pokemons.map((pokemon) => (
-        <View key={pokemon.name}>
+        <View key={pokemon.name} style={{
+          // @ts-ignore
+          backgroundColor: colorsByType[pokemon.types[0].type.name] + 80,
+          padding: 20,
+          borderRadius: 12,
+        }}>
           <Text style={styles.name}>{pokemon.name}</Text>
           <Text style={styles.type}>{pokemon.types[0].type.name}</Text>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{
+            flexDirection: 'row',
+            justifyContent: 'center'
+          }}>
             <Image 
               source={{ uri: pokemon.image }}
               style={{width: 150, height: 150}}
@@ -80,10 +114,12 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 28,
     fontWeight: 'bold',
+    textAlign: 'center'
   },
   type: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: 'gray'
+    color: 'gray',
+    textAlign: 'center',
   },
 }); 
