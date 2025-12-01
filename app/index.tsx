@@ -81,32 +81,34 @@ export default function Index() {
       }}
     >
       {pokemons.map((pokemon) => (
-        <Link key={pokemon.name}
-          href={'/details'}
-
-          style={{
-            // @ts-ignore
-            backgroundColor: colorsByType[pokemon.types[0].type.name] + 80,
-            padding: 20,
-            borderRadius: 12,
-            display: 'flex',
-            alignItems: 'center', 
-          }}
+        <Link
+          key={pokemon.name}
+          href={{ pathname: '/details', params: { name: pokemon.name } }}
+          asChild
         >
-          <View>
-            <Text style={styles.name}>{pokemon.name}</Text>
-            <Text style={styles.type}>{pokemon.types[0].type.name}</Text>
-            <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-              <Image 
-                source={{ uri: pokemon.image }}
-                style={{width: 150, height: 150}}
-              />
-              <Image 
-                source={{ uri: pokemon.imageBack }}
-                style={{width: 150, height: 150}}
-              />
+          <Pressable
+            style={{
+              // @ts-ignore - colorsByType lookup
+              backgroundColor: colorsByType[pokemon.types[0].type.name] + '80',
+              padding: 20,
+              borderRadius: 12,
+            }}
+          >
+            <View>
+              <Text style={styles.name}>{pokemon.name}</Text>
+              <Text style={styles.type}>{pokemon.types[0].type.name}</Text>
+              <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+                <Image 
+                  source={{ uri: pokemon.image }}
+                  style={{width: 150, height: 150}}
+                />
+                <Image 
+                  source={{ uri: pokemon.imageBack }}
+                  style={{width: 150, height: 150}}
+                />
+              </View>
             </View>
-          </View>
+          </Pressable>
         </Link>
       ))}
       

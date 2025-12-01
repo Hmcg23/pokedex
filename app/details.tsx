@@ -4,26 +4,30 @@ import { Image, ScrollView, Text, View, StyleSheet } from "react-native";
 
 export default function Details() {
     const params = useLocalSearchParams();
+    const [pokemon, setPokemon] = useState<any>(null);
 
-    const name = params.name;
+    console.log('details params:', params);
 
     useEffect(() => {
-        // fetch detailed info for the pokemon using the name from params
+        if (!params.name) return;
         fetchPokemonDetails();
-    }, []);
+    }, [params.name]);
 
     async function fetchPokemonDetails() {
         try {
             const response = await fetch(
-
-            )
+                `https://pokeapi.co/api/v2/pokemon/${params.name}`
+            );
+            const data = await response.json();
+            setPokemon(data);
         } catch (error) {
             console.error("Error fetching pokemon details:", error);
         }
+    }
 
     return (
         <>
-            <Stack.Screen options={{ title: params.name as string }} />
+            <Stack.Screen options={{ title: (params.name as string) || 'Details' }} />
             <ScrollView
             contentContainerStyle={{
                 gap: 16,
@@ -37,4 +41,10 @@ export default function Details() {
 }
 
 
-const styles = StyleSheet.create({}); 
+const styles = StyleSheet.create({
+    title: {
+        fontSize: 28,
+        fontWeight: 'bold',
+        textAlign: 'center'
+    }
+});
