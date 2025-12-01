@@ -89,6 +89,8 @@ export default function Index() {
             backgroundColor: colorsByType[pokemon.types[0].type.name] + 80,
             padding: 20,
             borderRadius: 12,
+            display: 'flex',
+            alignItems: 'center', 
           }}
         >
           <View>
